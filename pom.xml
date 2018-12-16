@@ -9,8 +9,7 @@
   <version>0.1</version>
 
   <name>dot-parser</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <url>https://github.com/pfg666/dot-parser</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,6 +35,8 @@
       <artifactId>automata-core</artifactId>
       <version>0.7.1</version>
     </dependency>
+    
+    <!-- The library is provided at http://www.alexander-merz.com/graphviz/ -->
     <dependency>
     	<groupId>com.alexmerz.graphviz</groupId>
     	<artifactId>graphviz</artifactId>
