@@ -12,11 +12,19 @@ import com.alexmerz.graphviz.objects.Graph;
 
 import net.automatalib.automata.Automaton;
 
-public abstract class DotParser<A extends Automaton> {
+public abstract class DotParser<A extends Automaton<?,?,?>> {
 	
 	public DotParser() {
 	}
 	
+	/**
+	 * Parses the graphs in a .dot file and generates corresponding automatalib models.
+	 * @param file - location of the file
+	 * @return - a list of models. Note that it is assumed that graphs in the .dot file 
+	 * describe the same type of model. 
+	 * @throws FileNotFoundException 
+	 * @throws ParseException
+	 */
 	public List<A> parseAutomaton(String file) throws FileNotFoundException, ParseException {
 		List<Graph> graphs = readGraphs(file);
 		List<A> automata = new ArrayList<>(graphs.size());
