@@ -31,14 +31,16 @@ public abstract class FSMDotParser<S, I, T, A extends DeterministicAutomaton<S, 
 		Map<Node, S> nodeToState = new HashMap<>(); 
 		
 		for (Node node : graph.getNodes(true)) {
-			S state = muttable.addState();
-			nodeToState.put(node, state);
-			if (isInitialState(node)) {
-				if (initialStateFound) {
-					throw new MultipleInitialStatesFoundException();
+			if (!isInitialIndicator(node)) { 
+				S state = muttable.addState();
+				nodeToState.put(node, state);
+				if (isInitialState(node)) {
+					if (initialStateFound) {
+						throw new MultipleInitialStatesFoundException();
+					}
+					initialStateFound = true;
+					muttable.setInitialState(state);
 				}
-				initialStateFound = true;
-				muttable.setInitialState(state);
 			}
 		}
 		
@@ -47,6 +49,10 @@ public abstract class FSMDotParser<S, I, T, A extends DeterministicAutomaton<S, 
 		}
 		return nodeToState;
 	} 
+	
+	protected boolean isInitialIndicator(Node node) {
+		return node.getId().getId().equals("__start0");
+	}
 	
 	/**
 	 * Checks whether a node corresponds to the initial state.
