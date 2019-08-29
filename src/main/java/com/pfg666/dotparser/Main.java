@@ -8,7 +8,7 @@ import com.alexmerz.graphviz.ParseException;
 import com.pfg666.dotparser.fsm.mealy.BasicStringMealyProcessor;
 import com.pfg666.dotparser.fsm.mealy.MealyDotParser;
 
-import net.automatalib.automata.transout.impl.FastMealy;
+import net.automatalib.automata.transducers.impl.FastMealy;
 
 public class Main {
 	

@@ -6,7 +6,7 @@
 
   <groupId>com.pfg666.dotparser</groupId>
   <artifactId>dot-parser</artifactId>
-  <version>0.1</version>
+  <version>0.2</version>
 
   <name>dot-parser</name>
   <url>https://github.com/pfg666/dot-parser</url>
@@ -33,12 +33,12 @@
 	<dependency>
 			<groupId>net.automatalib</groupId>
 			<artifactId>automata-core</artifactId>
-			    <version>0.6.0</version>
+			    <version>0.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>net.automatalib</groupId>
 			<artifactId>automata-util</artifactId>
-			    <version>0.6.0</version>
+			    <version>0.8.0</version>
 		</dependency>
     <!-- The library is available at http://www.alexander-merz.com/graphviz/ -->
     <dependency>

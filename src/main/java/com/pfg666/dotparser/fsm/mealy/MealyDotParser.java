@@ -11,9 +11,9 @@ import com.pfg666.dotparser.exceptions.MalformedEdgeException;
 import com.pfg666.dotparser.fsm.FSMConstants;
 import com.pfg666.dotparser.fsm.FSMDotParser;
 
-import net.automatalib.automata.transout.impl.FastMealy;
-import net.automatalib.automata.transout.impl.FastMealyState;
-import net.automatalib.automata.transout.impl.MealyTransition;
+import net.automatalib.automata.transducers.impl.FastMealy;
+import net.automatalib.automata.transducers.impl.FastMealyState;
+import net.automatalib.automata.transducers.impl.MealyTransition;
 import net.automatalib.words.Alphabet;
 import net.automatalib.words.impl.ListAlphabet;
 
