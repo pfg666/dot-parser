@@ -8,12 +8,12 @@ public class BasicStringMealyProcessor implements MealyProcessor<String, String>
 
 	@Override
 	public String processInput(String input) {
-		return input;
+		return input.trim();
 	}
 
 	@Override
 	public String processOutput(String output) {
-		return output;
+		return output.trim();
 	}
 
 }

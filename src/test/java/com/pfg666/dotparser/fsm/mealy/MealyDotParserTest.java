@@ -1,5 +1,6 @@
 package com.pfg666.dotparser.fsm.mealy;
 
+import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -7,13 +8,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.automatalib.automata.transout.impl.FastMealy;
-import net.automatalib.automata.transout.impl.FastMealyState;
-import net.automatalib.automata.transout.impl.MealyTransition;
+import net.automatalib.automata.transducers.impl.FastMealy;
+import net.automatalib.automata.transducers.impl.FastMealyState;
+import net.automatalib.automata.transducers.impl.MealyTransition;
 
 public class MealyDotParserTest {
-	
-	private static String WIN_CLIENT_PATH = Paths.get("src", "test", "resources", "models", "win8client.dot").toString();
+	private static String WIN_CLIENT="/models/tcp_win8_client.dot";
 	
 	private MealyDotParser<String,String> stringParser;
 	
@@ -24,7 +24,8 @@ public class MealyDotParserTest {
 	
 	@Test
 	public void mealyMachineTest() throws Exception{
-		List<FastMealy<String, String>> automata = stringParser.parseAutomaton(WIN_CLIENT_PATH);
+		InputStream stream = MealyDotParserTest.class.getResource(WIN_CLIENT).openStream();
+		List<FastMealy<String, String>> automata = stringParser.parseAutomaton(stream);
 		Assert.assertEquals(1, automata.size());
 		FastMealy<String, String> aut = automata.get(0);
 		Assert.assertEquals(13, aut.getStates().size());

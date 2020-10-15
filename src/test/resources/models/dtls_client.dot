@@ -1,0 +1,60 @@
+digraph G {
+label=""
+s0 [color="red"]
+s1
+s2
+s3
+s4
+s5
+s6
+s7
+s8
+s9
+s10
+s11
+s12
+s13
+s14
+s15
+s16
+s17
+s0 [label="s0"];
+s0 -> s1[label="?HELLO_VERIFY_REQUEST"]
+s0 -> s16[label="?DH_SERVER_HELLO"]
+s1 [label="s1"];
+s1 -> s2[label="!DH_CLIENT_HELLO+"]
+s2 [label="s2"];
+s2 -> s3[label="?DH_SERVER_HELLO"]
+s3 [label="s3"];
+s3 -> s4[label="?CERTIFICATE"] 
+s4 [label="s4"];
+s4 -> s5[label="?DH_SERVER_KEY_EXCHANGE"]
+s5 [label="s5"];
+s5 -> s6[label="?SERVER_HELLO_DONE"]
+s5 -> s10[label="?DSS_SIGN_CERTIFICATE_REQUEST"]
+s5 -> s12[label="?ECDSA_SIGN_CERTIFICATE_REQUEST"]
+s5 -> s14[label="?RSA_SIGN_CERTIFICATE_REQUEST"]
+s6 [label="s6"];
+s6 -> s7[label="!DH_CLIENT_KEY_EXCHANGE,CHANGE_CIPHER_SPEC,FINISHED"]
+s7 [label="s7"];
+s7 -> s8[label="?CHANGE_CIPHER_SPEC"]
+s8 [label="s8"];
+s8 -> s9[label="?FINISHED"]
+s9 [label="s9" shape="doublecircle"];
+s10 [label="s10"];
+s10 -> s11[label="?SERVER_HELLO_DONE"]
+s11 [label="s11"];
+s11 -> s9[label="!DSS_CERTIFICATE,DH_CLIENT_KEY_EXCHANGE,CHANGE_CIPHER_SPEC,FINISHED"]
+s12 [label="s12"];
+s12 -> s13[label="?SERVER_HELLO_DONE"]
+s13 [label="s13"];
+s13 -> s9[label="!ECDSA_CERTIFICATE,DH_CLIENT_KEY_EXCHANGE,CHANGE_CIPHER_SPEC,FINISHED"]
+s14 [label="s14"];
+s14 -> s15[label="?SERVER_HELLO_DONE"]
+s15 [label="s15"];
+s15 -> s9[label="!RSA_CERTIFICATE,DH_CLIENT_KEY_EXCHANGE,CHANGE_CIPHER_SPEC,FINISHED"]
+s16 [label="s16"];
+s16 -> s17[label="!DH_CLIENT_HELLO"]
+s17 [label="s17"];
+s17 -> s4[label="?CERTIFICATE"]
+}
