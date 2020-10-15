@@ -1,7 +1,6 @@
 package com.pfg666.dotparser.fsm.mealy;
 
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.junit.Assert;
