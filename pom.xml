@@ -7,7 +7,7 @@
 
   <groupId>com.pfg666.dotparser</groupId>
   <artifactId>dot-parser</artifactId>
-  <version>0.2</version>
+  <version>0.2.1</version>
 
 	<name>dot-parser</name>
 	<url>https://github.com/pfg666/dot-parser</url>
