@@ -10,6 +10,7 @@ import com.pfg666.dotparser.exceptions.InitialStateNotFoundException;
 import com.pfg666.dotparser.exceptions.MultipleInitialStatesFoundException;
 
 import net.automatalib.automata.DeterministicAutomaton;
+import net.automatalib.automata.MutableAutomaton;
 import net.automatalib.automata.MutableDeterministic;
 
 public abstract class FSMDotParser<S, I, T, A extends DeterministicAutomaton<S, I, T>> extends DotParser<A>{
@@ -26,8 +27,9 @@ public abstract class FSMDotParser<S, I, T, A extends DeterministicAutomaton<S, 
 	 * @param muttable - a mutable FSM which is under construction
 	 * @return mapping from graph nodes to states
 	 */
-	protected Map<Node, S> addStates(Graph graph, MutableDeterministic<S,I,T,?,?> muttable) {
+	protected Map<Node, S> addStates(Graph graph, MutableAutomaton<S,I,T,?,?> muttable) {
 		boolean initialStateFound = false;
+		boolean isDeterministic = muttable instanceof MutableDeterministic;
 		Map<Node, S> nodeToState = new HashMap<>(); 
 		
 		for (Node node : graph.getNodes(true)) {
@@ -39,12 +41,14 @@ public abstract class FSMDotParser<S, I, T, A extends DeterministicAutomaton<S, 
 						throw new MultipleInitialStatesFoundException();
 					}
 					initialStateFound = true;
-					muttable.setInitialState(state);
+					if (isDeterministic) {
+						((MutableDeterministic<S,I,T,?,?>) muttable).setInitialState(state);
+					}
 				}
 			}
 		}
 		
-		if (!initialStateFound) {
+		if (isDeterministic && !initialStateFound) {
 			throw new InitialStateNotFoundException();
 		}
 		return nodeToState;

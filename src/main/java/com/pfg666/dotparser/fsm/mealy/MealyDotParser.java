@@ -32,7 +32,7 @@ public class MealyDotParser<I,O> extends FSMDotParser<FastMealyState<O>, I, Meal
 		List<Edge> edges = g.getEdges();
 		
 		for (Edge edge : edges) {
-			String label = edge.getAttribute(FSMConstants.EDGE_LABEL);
+			String label = edge.getAttribute(FSMConstants.EDGE_ATTR_LABEL);
 			if (label == null) {
 				continue;
 			}
@@ -56,7 +56,7 @@ public class MealyDotParser<I,O> extends FSMDotParser<FastMealyState<O>, I, Meal
 		List<I> inputs = new ArrayList<>();
 		List<Edge> edges = g.getEdges();
 		for (Edge edge : edges) {
-			String label = edge.getAttribute(FSMConstants.EDGE_LABEL);
+			String label = edge.getAttribute(FSMConstants.EDGE_ATTR_LABEL);
 			if (label == null) {
 				continue;
 			}
