@@ -13,10 +13,11 @@ import net.automatalib.automata.DeterministicAutomaton;
 import net.automatalib.automata.MutableAutomaton;
 import net.automatalib.automata.MutableDeterministic;
 
-public abstract class FSMDotParser<S, I, T, A extends DeterministicAutomaton<S, I, T>> extends DotParser<A>{
+public abstract class FSMDotParser<P extends Processor, S, I, T, A extends DeterministicAutomaton<S, I, T>> extends DotParser<P,A>{
+	private P processor;
 
-	public FSMDotParser() {
-		
+	public FSMDotParser(P processor) {
+		this.processor = processor;
 	}
 	
 	/**
@@ -33,10 +34,10 @@ public abstract class FSMDotParser<S, I, T, A extends DeterministicAutomaton<S, 
 		Map<Node, S> nodeToState = new HashMap<>(); 
 		
 		for (Node node : graph.getNodes(true)) {
-			if (!isInitialIndicator(node)) { 
+			if (!processor.isIgnoredState(node)) { 
 				S state = muttable.addState();
 				nodeToState.put(node, state);
-				if (isInitialState(node)) {
+				if (processor.isInitialState(node)) {
 					if (initialStateFound) {
 						throw new MultipleInitialStatesFoundException();
 					}
@@ -53,6 +54,10 @@ public abstract class FSMDotParser<S, I, T, A extends DeterministicAutomaton<S, 
 		}
 		return nodeToState;
 	} 
+	
+	protected P getProcessor() {
+		return processor;
+	}
 	
 	protected boolean isInitialIndicator(Node node) {
 		return node.getId().getId().equals("__start0");

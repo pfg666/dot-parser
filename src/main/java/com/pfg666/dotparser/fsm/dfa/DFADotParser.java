@@ -7,7 +7,6 @@ import com.alexmerz.graphviz.objects.Edge;
 import com.alexmerz.graphviz.objects.Graph;
 import com.alexmerz.graphviz.objects.Node;
 import com.pfg666.dotparser.exceptions.MalformedNodeException;
-import com.pfg666.dotparser.fsm.FSMConstants;
 import com.pfg666.dotparser.fsm.FSMDotParser;
 
 import net.automatalib.automata.fsa.impl.FastDFA;
@@ -15,12 +14,11 @@ import net.automatalib.automata.fsa.impl.FastDFAState;
 import net.automatalib.words.Alphabet;
 import net.automatalib.words.impl.SimpleAlphabet;
 
-public class DFADotParser<L> extends FSMDotParser<FastDFAState, L, FastDFAState, FastDFA<L>>{
+public class DFADotParser<L> extends FSMDotParser<DFAProcessor<L>, FastDFAState, L, FastDFAState, FastDFA<L>>{
 	
-	private DFAProcessor<L> processor;
 
 	public DFADotParser(DFAProcessor<L> processor) {
-		this.processor = processor;
+		super(processor);
 	}
 	
 	protected FastDFA<L> processGraph(Graph g) {
@@ -30,26 +28,18 @@ public class DFADotParser<L> extends FSMDotParser<FastDFAState, L, FastDFAState,
 		
 		// making accepting/rejecting
 		for (Map.Entry<Node, FastDFAState> entry : nodeToState.entrySet()) {
-			String shapeVal = entry.getKey().getAttribute(FSMConstants.NODE_ATTR_SHAPE);
-			if (FSMConstants.NODE_ATTR_SHAPE_ACCEPTING.equals(shapeVal)) {
-				entry.getValue().setAccepting(true);
+			Boolean acc = getProcessor().isAccepting(entry.getKey());
+			if (acc != null) {
+				entry.getValue().setAccepting(acc.booleanValue());
 			} else {
-				if (shapeVal == null || FSMConstants.NODE_ATTR_SHAPE_REJECTING.equals(shapeVal)) {
-					entry.getValue().setAccepting(false);	
-				} else {
-					throw new MalformedNodeException(entry.getKey(), "Unrecognized shape " + shapeVal);
-				}
+				throw new MalformedNodeException(entry.getKey(), "Could not parse node");
 			}
 		}
 		
 		List<Edge> edges = g.getEdges();
 		
 		for (Edge edge : edges) {
-			String strLabel = edge.getAttribute(FSMConstants.EDGE_ATTR_LABEL);
-			if (strLabel == null) {
-				continue;
-			}
-			L label = processor.processLabel(strLabel);
+			L label = getProcessor().processLabel(edge);
 			if (label != null) {
 				if (!muttable.getInputAlphabet().contains(label)) {
 					muttable.addAlphabetSymbol(label);

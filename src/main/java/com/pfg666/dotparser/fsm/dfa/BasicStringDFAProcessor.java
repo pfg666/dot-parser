@@ -1,9 +1,9 @@
 package com.pfg666.dotparser.fsm.dfa;
 
-public class BasicStringDFAProcessor implements DFAProcessor<String>{
+public class BasicStringDFAProcessor extends AbstractDFAProcessor<String>{
 
 	@Override
-	public String processLabel(String input) {
+	public String processDFALabel(String input) {
 		return input;
 	}
 

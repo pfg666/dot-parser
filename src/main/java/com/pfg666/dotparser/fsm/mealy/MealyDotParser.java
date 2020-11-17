@@ -6,8 +6,6 @@ import java.util.Map;
 import com.alexmerz.graphviz.objects.Edge;
 import com.alexmerz.graphviz.objects.Graph;
 import com.alexmerz.graphviz.objects.Node;
-import com.pfg666.dotparser.exceptions.MalformedEdgeException;
-import com.pfg666.dotparser.fsm.FSMConstants;
 import com.pfg666.dotparser.fsm.FSMDotParser;
 
 import net.automatalib.automata.transducers.impl.FastMealy;
@@ -17,12 +15,11 @@ import net.automatalib.commons.util.Pair;
 import net.automatalib.words.Alphabet;
 import net.automatalib.words.impl.SimpleAlphabet;
 
-public class MealyDotParser<I,O> extends FSMDotParser<FastMealyState<O>, I, MealyTransition<FastMealyState<O>,O>, FastMealy<I,O>>{
+public class MealyDotParser<I,O> extends FSMDotParser<MealyProcessor<I,O>, FastMealyState<O>, I, MealyTransition<FastMealyState<O>,O>, FastMealy<I,O>>{
 	
-	private MealyProcessor<I,O> processor;
 
 	public MealyDotParser(MealyProcessor<I,O> processor) {
-		this.processor = processor;
+		super(processor);
 	}
 	
 	protected FastMealy<I, O> processGraph(Graph g) {
@@ -32,15 +29,7 @@ public class MealyDotParser<I,O> extends FSMDotParser<FastMealyState<O>, I, Meal
 		List<Edge> edges = g.getEdges();
 		
 		for (Edge edge : edges) {
-			String label = edge.getAttribute(FSMConstants.EDGE_ATTR_LABEL);
-			if (label == null) {
-				continue;
-			}
-			String[] io = label.split("/");
-			if (io.length != 2) {
-				throw new MalformedEdgeException(edge);
-			}
-			Pair<I,O> ioPair = processor.processInputOutput(io[0], io[1]);
+			Pair<I,O> ioPair = getProcessor().processInputOutput(edge);
 			if (ioPair != null) {
 				I input = ioPair.getFirst();
 				O output = ioPair.getSecond();

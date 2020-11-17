@@ -1,5 +1,6 @@
 package com.pfg666.dotparser.fsm.mealy;
 
+import com.alexmerz.graphviz.objects.Edge;
 import com.pfg666.dotparser.fsm.Processor;
 
 import net.automatalib.commons.util.Pair;
@@ -10,8 +11,9 @@ import net.automatalib.commons.util.Pair;
 public interface MealyProcessor<I,O> extends Processor{
 	
 	/**
-	 * Generates an input/output object pair from the input/output strings encoded in an edge label.
+	 * Generates an input/output object pair from an edge.
 	 * Returning {@code null} instructs the parser to act as if the edge did not exist.
 	 */
-	public Pair<I,O> processInputOutput(String input, String output);
+	Pair<I,O> processInputOutput(Edge edge);
+	
 }

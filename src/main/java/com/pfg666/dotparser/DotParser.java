@@ -12,10 +12,11 @@ import java.util.List;
 import com.alexmerz.graphviz.ParseException;
 import com.alexmerz.graphviz.Parser;
 import com.alexmerz.graphviz.objects.Graph;
+import com.pfg666.dotparser.fsm.Processor;
 
 import net.automatalib.automata.Automaton;
 
-public abstract class DotParser<A extends Automaton<?,?,?>> {
+public abstract class DotParser<P extends Processor, A extends Automaton<?,?,?>> {
 	
 	public DotParser() {
 	}
