@@ -1,6 +1,5 @@
 package com.pfg666.dotparser.exceptions;
 
-import com.alexmerz.graphviz.objects.Edge;
 import com.alexmerz.graphviz.objects.Node;
 
 public class MalformedNodeException extends RuntimeException{

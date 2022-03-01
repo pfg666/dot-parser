@@ -12,7 +12,7 @@ import com.pfg666.dotparser.fsm.mealy.MealyDotParser;
 
 import net.automatalib.automata.Automaton;
 import net.automatalib.automata.fsa.impl.FastDFA;
-import net.automatalib.automata.transducers.impl.FastMealy;
+import net.automatalib.automata.transout.impl.FastMealy;
 
 public class Main {
 	

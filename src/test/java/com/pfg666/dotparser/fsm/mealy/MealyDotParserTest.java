@@ -7,12 +7,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.automatalib.automata.transducers.impl.FastMealy;
-import net.automatalib.automata.transducers.impl.FastMealyState;
-import net.automatalib.automata.transducers.impl.MealyTransition;
+import net.automatalib.automata.transout.impl.FastMealy;
+import net.automatalib.automata.transout.impl.FastMealyState;
+import net.automatalib.automata.transout.impl.MealyTransition;
+
 
 public class MealyDotParserTest {
-	private static String WIN_CLIENT="/models/tcp_win8_client.dot";
+	private static String WIN_CLIENT="/models/mealy/tcp_win8_client.dot";
 	
 	private MealyDotParser<String,String> stringParser;
 	

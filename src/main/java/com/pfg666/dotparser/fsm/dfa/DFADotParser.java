@@ -23,6 +23,14 @@ public class DFADotParser<L> extends FSMDotParser<DFAProcessor<L>, FastDFAState,
 	
 	protected FastDFA<L> processGraph(Graph g) {
 		Alphabet<L> inputAlphabet = new SimpleAlphabet<>();
+		List<Edge> edges = g.getEdges();
+		for (Edge edge : edges) {
+			L label = getProcessor().processLabel(edge);
+			if (label != null) {
+				inputAlphabet.add(label);
+			}
+		}
+		
 		FastDFA<L> muttable = new FastDFA<L>(inputAlphabet);
 		Map<Node, FastDFAState> nodeToState = super.addStates(g, muttable);
 		
@@ -36,14 +44,9 @@ public class DFADotParser<L> extends FSMDotParser<DFAProcessor<L>, FastDFAState,
 			}
 		}
 		
-		List<Edge> edges = g.getEdges();
-		
 		for (Edge edge : edges) {
 			L label = getProcessor().processLabel(edge);
 			if (label != null) {
-				if (!muttable.getInputAlphabet().contains(label)) {
-					muttable.addAlphabetSymbol(label);
-				}
 				FastDFAState sourceState = nodeToState.get(edge.getSource().getNode());
 				FastDFAState targetState = nodeToState.get(edge.getTarget().getNode()); 
 				muttable.setTransition(sourceState, label, targetState);

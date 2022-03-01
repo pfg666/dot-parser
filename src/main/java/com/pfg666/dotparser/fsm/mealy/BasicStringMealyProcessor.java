@@ -10,7 +10,7 @@ public class BasicStringMealyProcessor extends AbstractMealyProcessor<String, St
 
 	@Override
 	public Pair<String,String> processMealyInputOutput(String input, String output) {
-		return Pair.of(input.trim(), output.trim());
+		return new Pair<String, String>(input.trim(), output.trim());
 	}
 
 }

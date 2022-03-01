@@ -29,7 +29,7 @@ public abstract class AbstractMealyProcessor<I,O> implements MealyProcessor<I, O
 		if (ioStrings.length != 2) {
 			throw new MalformedEdgeException(edge);
 		}
-		return Pair.of(ioStrings[0], ioStrings[1]);
+		return new Pair<>(ioStrings[0], ioStrings[1]);
 	}
 
 }
